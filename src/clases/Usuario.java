@@ -37,6 +37,20 @@ public abstract class Usuario {
 		
 	}
 
+	
+	
+	public String getNombreDeUsuario() {
+		return nombreDeUsuario;
+	}
+
+	public void setNombreDeUsuario(String nombreDeUsuario) {
+		this.nombreDeUsuario = nombreDeUsuario;
+	}
+
+	public String getContraseña() {
+		return contraseña;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(dni, nombreDeUsuario);
