@@ -1,5 +1,7 @@
 package clases;
 
+import java.util.Objects;
+
 public class ItemPedido {
 	// atributos
 	
@@ -37,16 +39,37 @@ public class ItemPedido {
 		return precioUnitario;
 	}
 	
-	@Override
-	public String toString() {
-		return nombre+"\t$"+precioUnitario+"\t"+cantidad;
-	}
-	
 	// metodos
 	
 	public float precioTotal()
 	{
 		return precioUnitario * cantidad;
 	}
+	
+	@Override
+	public String toString() {
+		return nombre+"\t$"+precioUnitario+"\t"+cantidad;
+	}
+
+	@Override
+	public int hashCode() {
+		return 1;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ItemPedido other = (ItemPedido) obj;
+		return cantidad == other.cantidad && Objects.equals(nombre, other.nombre)
+				&& Float.floatToIntBits(precioUnitario) == Float.floatToIntBits(other.precioUnitario);
+	}
+	
+	
+	
 
 }

@@ -1,6 +1,6 @@
 package clases;
 
-public class Empleado extends Usuario{
+public class Empleado extends Usuario implements I_calcularMonto{
 
     private float sueldo;
     private String horario;
