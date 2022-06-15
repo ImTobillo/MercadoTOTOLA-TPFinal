@@ -10,13 +10,13 @@ public class Empleado extends Usuario implements I_calcularMonto{
 	private int horasTrabajadas;
     private int horasExtras;
     
-	public Empleado(String nombre, String apellido, int edad, String dni, String nombreDeUsuario, String contraseña,float sueldo, String horario,float pagoPorHoras) {
+	public Empleado(String nombre, String apellido, int edad, String dni, String nombreDeUsuario, String contraseña, String horario,float pagoPorHoras) {
 		super(nombre, apellido, edad, dni, nombreDeUsuario, contraseña);
-		this.sueldo = sueldo;
+		sueldo=0;
 		this.horario = horario;
 		this.pagoPorHoras = pagoPorHoras;
-		this.horasTrabajadas = 0;
-		this.horasExtras = 0;
+		horasTrabajadas = 0;
+		horasExtras = 0;
 	}
 
 	@Override

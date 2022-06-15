@@ -2,10 +2,9 @@ package usuarios;
 
 public class Gerente extends Empleado{
 
-	public Gerente(String nombre, String apellido, int edad, String dni, String nombreDeUsuario, String contraseña,
-			float sueldo, String horario, float pagoPorHoras) {
+	public Gerente(String nombre, String apellido, int edad, String dni, String nombreDeUsuario, String contraseña, String horario, float pagoPorHoras) {
 		
-		super(nombre, apellido, edad, dni, nombreDeUsuario, contraseña, sueldo, horario,pagoPorHoras);
+		super(nombre, apellido, edad, dni, nombreDeUsuario, contraseña, horario,pagoPorHoras);
 		// TODO Auto-generated constructor stub
 	}
 

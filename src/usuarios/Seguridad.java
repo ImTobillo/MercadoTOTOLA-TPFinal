@@ -4,10 +4,9 @@ public class Seguridad extends Empleado{
 
 	private String zonaAvigilar;
 
-	public Seguridad(String nombre, String apellido, int edad, String dni, String nombreDeUsuario, String contraseña,
-			float sueldo, String horario, int horasTrabajadas, int horasExtras, String zonaAvigilar,float pagoPorHoras) {
+	public Seguridad(String nombre, String apellido, int edad, String dni, String nombreDeUsuario, String contraseña, String horario, String zonaAvigilar,float pagoPorHoras) {
 		
-		super(nombre, apellido, edad, dni, nombreDeUsuario, contraseña, sueldo, horario,pagoPorHoras);
+		super(nombre, apellido, edad, dni, nombreDeUsuario, contraseña, horario,pagoPorHoras);
 		
 		this.zonaAvigilar = zonaAvigilar;
 	}
