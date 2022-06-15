@@ -47,6 +47,11 @@ public class Mercado {
 		listaUsuarios.put(usuario.getNombreDeUsuario(), usuario);
 		return true;
 	}
+	
+	public boolean existeUsuario(String nombreUsuario)
+	{
+		return listaUsuarios.containsKey(nombreUsuario);
+	}
 
 }
 
