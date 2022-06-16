@@ -32,12 +32,11 @@ public class Main {
 	
 	public static void menuInicial()
 	{
-		int repetir, opcion, tipoUsuario, tipoARegistrar;
+		int repetir = 1, opcion = 1;
 		
 		while(repetir == 1)
 		{
 			try {
-				
 				System.out.println("¿DESEA INGRESAR O REGISTRARSE?\n"
 						+ "	   1  	   - INGRESAR\n"
 						+ "OTRO NÚMERO - REGISTRARSE");
@@ -45,72 +44,9 @@ public class Main {
 				opcion = teclado.nextInt();
 				
 				if (opcion == 1)
-				{
-					
-					System.out.println("¿QUÉ TIPO DE USUARIO USA?\n"
-								+"	   1 	  - CLIENTE\n" // lauti
-								+"	   2	  - EMPLEADO\n" // tobi
-								+"OTRO NUMERO - GERENTE"); // tobillo
-					tipoUsuario = teclado.nextInt();
-					
-					
-					
-					switch (tipoUsuario) {
-					case 1:
-						
-						tipoARegistrar = 1;
-						
-						while()
-						{
-							System.out.println("");
-						}
-						break;
-					case 2:
-						
-						tipoARegistrar = 2;
-						
-						while()
-						{
-							System.out.println("");
-						}
-						break;
-					default:
-						
-						
-						
-						while()
-						{
-							System.out.println("");
-						}
-						
-						break;
-					}
-					
-				}
+					ingresar();
 				else
-				{
-					Usuario nuevo;
-					System.out.println("INGRESE NOMBRE:");
-					
-				}
-				
-				switch (opcion) {
-				case 1: // cliente
-					
-					break;
-				case 2: // gerente
-					
-					break;
-				case 3: // empleado
-					
-					break;
-				case 4:
-					repetir = 0;
-					break;
-				default:
-					
-					break;
-				}
+					registrarse();
 				
 				if (repetir == 1)
 				{
@@ -119,8 +55,6 @@ public class Main {
 							  "OTRO NÚMERO - NO");
 					repetir = teclado.nextInt();
 				}
-					
-				
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
@@ -129,12 +63,59 @@ public class Main {
 
 	public static void ingresar()
 	{
+		int tipoUsuario = 1, repetir = 1;
 		
+		System.out.println("¿QUÉ TIPO DE USUARIO USA?\n"
+				+"	   1 	  - CLIENTE\n" // lauti
+				+"	   2	  - EMPLEADO\n" // tobi
+				+"OTRO NUMERO - GERENTE"); // tobillo
+		
+		tipoUsuario = teclado.nextInt();
+	
+	
+	
+		switch (tipoUsuario) {
+		case 1:
+		
+		tipoARegistrar = 1;
+		
+		while()
+		{
+			System.out.println("");
+		}
+		break;
+		case 2:
+		
+		tipoARegistrar = 2;
+		
+		while()
+		{
+			System.out.println("");
+		}
+		break;
+		default:
+		
+		
+		
+		while()
+		{
+			System.out.println("");
+		}
+		
+		break;
+	}
+	
+	}
+	
+	public static void ingresarEmpleado()
+	{
 		
 	}
 	
-	public static void registrarse(int tipoARegistrar)
+	public static void registrarse()
 	{
+		
+		
 		try {
 			System.out.println("INGRESE NOMBRE: ");
 			String nombre = teclado.nextLine();
