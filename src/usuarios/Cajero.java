@@ -16,9 +16,13 @@ public class Cajero extends Empleado{
 	{
 		cajaAAtender=caja;
 	}
-	
-	
 
+	public int getCajaAAtender() {
+		return cajaAAtender;
+	}
+	
+	
+	
 	
 
 }

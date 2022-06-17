@@ -26,7 +26,7 @@ public abstract class Usuario {
 
 	@Override
 	public String toString() {
-		return "nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad + ", dni=" + dni
+		return "DATOS DE " + nombre + apellido + ":\nedad=" + edad + ", dni=" + dni
 				+ ", nombreDeUsuario=" + nombreDeUsuario + ", contraseña=" + contraseña + ", fechaDeCreacion="
 				+ fechaDeCreacion;
 	}
@@ -37,7 +37,9 @@ public abstract class Usuario {
 		
 	}
 
-	
+	public String getNombreYApellido() {
+		return nombre+apellido;
+	}
 	
 	public String getNombreDeUsuario() {
 		return nombreDeUsuario;

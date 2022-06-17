@@ -22,6 +22,9 @@ public class Seguridad extends Empleado{
 		
 	}
 
-	
+	public String getZonaAvigilar() {
+		return zonaAvigilar;
+	}
+
 	
 }

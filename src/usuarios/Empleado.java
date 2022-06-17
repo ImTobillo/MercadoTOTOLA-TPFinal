@@ -34,6 +34,14 @@ public class Empleado extends Usuario implements I_calcularMonto{
 		return sueldo;
 	}
 	
+	public void setHorasExtras(int horasExtras) {
+		this.horasExtras = horasExtras;
+	}
+	
+	public void setHorasTrabajadas(int horasTrabajadas) {
+		this.horasTrabajadas = horasTrabajadas;
+	}
+	
 	public float aCobrar()
     {
         sueldo += ((horasTrabajadas*pagoPorHoras)+(horasExtras*pagoPorHoras*2));
