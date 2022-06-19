@@ -37,6 +37,16 @@ public class ListaProducto<E extends Producto> {
 		return flag;
 	}
 
+	public Producto retornarProducto(String nombre)
+	{
+		for (E e : listaProductos) {
+			if (e.getNombre().equalsIgnoreCase(nombre))
+				return e;
+		}
+		
+		return null;		
+	}
+	
 	public void buscarRepone(String nombre, int cantidad) {
 
 		boolean flag = false;

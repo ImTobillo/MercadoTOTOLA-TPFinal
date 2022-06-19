@@ -12,7 +12,7 @@ public class Empleado extends Usuario implements I_calcularMonto{
     
 	public Empleado(String nombre, String apellido, int edad, String dni, String nombreDeUsuario, String contraseña, String horario,float pagoPorHoras) {
 		super(nombre, apellido, edad, dni, nombreDeUsuario, contraseña);
-		sueldo=0;
+		sueldo = 0;
 		this.horario = horario;
 		this.pagoPorHoras = pagoPorHoras;
 		horasTrabajadas = 0;
@@ -21,17 +21,8 @@ public class Empleado extends Usuario implements I_calcularMonto{
 
 	@Override
 	public String toString() {
-		return super.toString()+"sueldo=" + sueldo + ", horario=" + horario + ", horasTrabajadas=" + horasTrabajadas
+		return super.toString()+"sueldo=" + aCobrar() + ", horario=" + horario + ", horasTrabajadas=" + horasTrabajadas
 				+ ", horasExtras=" + horasExtras;
-	}
-
-	public void ModificarSueldo(float sueldo) {
-		this.sueldo = sueldo;
-	}
-
-	public float getSueldo() {
-
-		return sueldo;
 	}
 	
 	public void setHorasExtras(int horasExtras) {

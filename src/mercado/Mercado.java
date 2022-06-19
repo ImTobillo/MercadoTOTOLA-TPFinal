@@ -2,7 +2,6 @@ package mercado;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import excepciones.*;
@@ -56,9 +55,9 @@ public class Mercado {
 	public String mostrarTodosLosProductos() {
 		StringBuilder lista = new StringBuilder();
 
-		lista.append(congelados.toString());
-		lista.append(alimentosCultivados.toString());
-		lista.append(limpieza.toString());
+		lista.append(congelados.mostrar()+"\n");
+		lista.append(alimentosCultivados.mostrar()+"\n");
+		lista.append(limpieza.mostrar()+"\n");
 
 		return lista.toString();
 	}
@@ -78,6 +77,19 @@ public class Mercado {
 		return flag;
 	}
 
+	public Producto retornarProducto(String nombre)
+	{
+		Producto prod = congelados.retornarProducto(nombre);
+		
+		if (prod == null)
+			prod = alimentosCultivados.retornarProducto(nombre);
+		
+		if (prod == null)
+			prod = limpieza.retornarProducto(nombre);
+		
+		return prod;
+	}
+	
 	public void reponer(String nombre, int cantidad) {
 
 		congelados.buscarRepone(nombre, cantidad);

@@ -3,7 +3,7 @@ package productos;
 import java.util.Objects;
 
 public class Producto implements Comparable<Producto>{
-	private static int identificador;
+	//private static int identificador;
 	
 	// ATRIBUTOS
 	
@@ -48,9 +48,9 @@ public class Producto implements Comparable<Producto>{
 		return id;
 	}
 	
-	public static void setIdentificador(int identificador) {
+	/*public static void setIdentificador(int identificador) {
 		Producto.identificador = identificador;
-	}
+	}*/
 	
 	public void setPrecio(float precio) {
 		this.precio = precio;
