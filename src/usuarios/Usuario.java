@@ -1,10 +1,11 @@
 package usuarios;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
-public abstract class Usuario {
+public abstract class Usuario implements Serializable{
 	
 	private String nombre;
 	private String apellido;
@@ -26,8 +27,8 @@ public abstract class Usuario {
 
 	@Override
 	public String toString() {
-		return "DATOS DE " + nombre + apellido + ":\nedad=" + edad + ", dni=" + dni
-				+ ", nombreDeUsuario=" + nombreDeUsuario + ", contraseña=" + contraseña + ", fechaDeCreacion="
+		return "DATOS DE " + nombre + apellido + ":\nEdad: " + edad + "\nDNI: " + dni
+				+ "\nNombre de usuario=" + nombreDeUsuario + "\nContraseña: " + contraseña + "\nFecha de creacion: "
 				+ fechaDeCreacion;
 	}
 

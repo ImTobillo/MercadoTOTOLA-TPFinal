@@ -13,6 +13,7 @@ import productos.*;
 public class Mercado {
 	// atributos
 
+	private String nombre;
 	private HashMap<String, Usuario> listaUsuarios;
 	private ListaProducto<Congelado> congelados;
 	private ListaProducto<AlimentoCultivado> alimentosCultivados;
@@ -20,7 +21,8 @@ public class Mercado {
 
 	// constructores
 
-	public Mercado() {
+	public Mercado(String nombre) {
+		this.nombre = nombre;
 		listaUsuarios = new HashMap<String, Usuario>();
 		congelados = new ListaProducto<Congelado>();
 		alimentosCultivados = new ListaProducto<AlimentoCultivado>();
@@ -136,5 +138,11 @@ public class Mercado {
 			return false;
 		else
 			return true;
+	}
+	
+	/// gets
+	
+	public String getNombre() {
+		return nombre;
 	}
 }

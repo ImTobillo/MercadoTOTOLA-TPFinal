@@ -1,5 +1,10 @@
 package main;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.NotSerializableException;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import productos.*;
@@ -14,11 +19,12 @@ public class Main {
 	static Mercado mercadoTotola;
 
 	public static void main(String[] args) {
-
 		teclado = new Scanner(System.in);
-
-		mercadoTotola = new Mercado();
-
+		
+		crearArchivo();
+		
+		mercadoTotola = new Mercado("Mercado TOTOLA");
+		
 		try {
 			Gerente gerente = new Gerente("Gerardo", "Messi", 45, "21569784", "gerardoMessi", "12345678", "Libre", 0);
 			mercadoTotola.agregarUsuario(gerente);
@@ -31,6 +37,25 @@ public class Main {
 		teclado.close();
 	}
 
+	public static void crearArchivo()
+	{	
+		try {
+			FileOutputStream fileOS_ListaUsuarios = new FileOutputStream("ListaUsuarios,bin");
+			ObjectOutputStream objectOS_ListaUsuarios = new ObjectOutputStream(fileOS_ListaUsuarios);
+			
+			
+			
+		} catch (NotSerializableException e) {
+			System.out.println(e.getMessage().concat("NO SE HA IMPLEMENTADO LA INTERFAZ SERIALIZABLE"));
+		}
+		catch (IOException e) {
+			System.out.println(e.getMessage().concat("HUBO UN ERROR EN LA ESCRITURA."));
+		}
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
 	public static void menuInicial() {
 		int repetir = 1, opcion = 1;
 
