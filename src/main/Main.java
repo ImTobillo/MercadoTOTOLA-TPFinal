@@ -305,7 +305,7 @@ public class Main {
 
 		while (repetir == 1) {
 				System.out.println("INGRESE UNA OPCIÓN:\n" + "1 - VER LISTADO DE PRODUCTOS.\n"
-						+ "2 - BUSCAR PRODUCTO.\n" + "3 - VER CARRITO.\n" + "4 - SALIR DEL MENÚ");
+						+ "2 - AGREGAR.\n" + "3 - VER CARRITO.\n" + "4 - SALIR DEL MENÚ");
 
 				opcion = teclado.nextInt();
 				teclado.nextLine();
