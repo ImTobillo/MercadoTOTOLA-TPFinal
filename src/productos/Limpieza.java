@@ -20,7 +20,7 @@ public class Limpieza extends Producto{
 
 	@Override
 	public String toString() {
-		return super.toString() + "Limpieza [tipoDeAseo=" + tipoDeAseo + "]";
+		return super.toString() + "TIPO DE ASEO: " + tipoDeAseo.toUpperCase() + " ";
 	}
 	
 }

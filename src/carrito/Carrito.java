@@ -27,7 +27,7 @@ public class Carrito implements I_calcularMonto{
 	// metodos
 	
 	@Override
-	public float aCobrar() {
+	public float aCobrar() {  // implementa la interfaz aCobrar para retornar el monto total a pagar
 		float montoTotal = 0;
 		
 		for (ItemPedido itemPedido : listaDePedidos) {
@@ -49,6 +49,8 @@ public class Carrito implements I_calcularMonto{
 		
 		while(it.hasNext())
 			lista.append(it.next().toString()+"\n");
+		
+		lista.append("TOTAL A PAGAR: " + aCobrar());
 		
 		return lista.toString();
 	}

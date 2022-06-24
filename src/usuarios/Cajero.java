@@ -1,5 +1,7 @@
 package usuarios;
 
+import java.io.Serializable;
+
 public class Cajero extends Empleado{
 
 	int cajaAAtender;

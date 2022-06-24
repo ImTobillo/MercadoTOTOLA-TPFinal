@@ -20,7 +20,7 @@ public class AlimentoCultivado extends Producto{
 
 	@Override
 	public String toString() {
-		return super.toString() + "AlimentoCultivado [tipo=" + tipo + "]";
+		return super.toString() + "TIPO: " + tipo.toUpperCase() + " ";
 	}
 	
 }

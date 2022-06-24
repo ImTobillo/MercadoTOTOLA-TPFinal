@@ -1,5 +1,7 @@
 package usuarios;
 
+import java.io.Serializable;
+
 import interfaces.I_calcularMonto;
 
 public class Empleado extends Usuario implements I_calcularMonto{
@@ -21,8 +23,8 @@ public class Empleado extends Usuario implements I_calcularMonto{
 
 	@Override
 	public String toString() {
-		return super.toString()+"sueldo=" + aCobrar() + ", horario=" + horario + ", horasTrabajadas=" + horasTrabajadas
-				+ ", horasExtras=" + horasExtras;
+		return super.toString()+"\nSUELDO:" +sueldo + "\nHORARIO:" + horario + "\nHORAS TRABAJADAS:" + horasTrabajadas
+				+ "\nHORAS EXTRAS:" + horasExtras;
 	}
 	
 	public void setHorasExtras(int horasExtras) {
@@ -37,9 +39,9 @@ public class Empleado extends Usuario implements I_calcularMonto{
 		return sueldo;
 	}
 	
-	public float aCobrar()
+	public float aCobrar() // asigna el sueldo y lo retorna para mostrar
     {
-        sueldo += ((horasTrabajadas*pagoPorHoras)+(horasExtras*pagoPorHoras*2));
+        sueldo = ((horasTrabajadas*pagoPorHoras)+(horasExtras*pagoPorHoras*2));
     	
     	return sueldo;
     }

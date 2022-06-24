@@ -27,9 +27,9 @@ public abstract class Usuario implements Serializable{
 
 	@Override
 	public String toString() {
-		return "DATOS DE " + nombre + apellido + ":\nEdad: " + edad + "\nDNI: " + dni
-				+ "\nNombre de usuario=" + nombreDeUsuario + "\nContraseña: " + contraseña + "\nFecha de creacion: "
-				+ fechaDeCreacion;
+		return "\nDATOS DE " + nombre.toUpperCase() + " " + apellido.toUpperCase() + "\nEDAD: " + edad + "\nDNI: " + dni
+				+ "\nNOMBRE DE USUARIO: " + nombreDeUsuario + "\nCONTRASEÑA: " + contraseña + "\nFECHA DE CREACION: "
+				+ fechaDeCreacion.toString();
 	}
 
 	public void CambiarContraseña(String contraseña) {

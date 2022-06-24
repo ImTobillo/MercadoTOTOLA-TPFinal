@@ -4,18 +4,19 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
+import ControlArchivos.ControladoraArchivos;
+import JSON.ControladoraJSON;
 import excepciones.*;
 import usuarios.*;
 import productos.*;
-//import interfaces.*;
-//import carrito.*;
+
 
 public class Mercado {
 	// atributos
 
 	private String nombre;
 	private HashMap<String, Usuario> listaUsuarios;
-	private ListaProducto<Congelado> congelados;
+	public ListaProducto<Congelado> congelados;
 	private ListaProducto<AlimentoCultivado> alimentosCultivados;
 	private ListaProducto<Limpieza> limpieza;
 
@@ -23,28 +24,39 @@ public class Mercado {
 
 	public Mercado(String nombre) {
 		this.nombre = nombre;
-		listaUsuarios = new HashMap<String, Usuario>();
+		listaUsuarios = ControladoraArchivos.leerUsuarios(); // se cargan los usuarios
 		congelados = new ListaProducto<Congelado>();
 		alimentosCultivados = new ListaProducto<AlimentoCultivado>();
 		limpieza = new ListaProducto<Limpieza>();
+		ControladoraJSON.JsonALista(alimentosCultivados, limpieza, congelados); // se cargan las listas de productos
 	}
 
 	// metodos
+	
+	public void guardarUsuarios ()
+	{
+		ControladoraArchivos.guardarUsuarios(listaUsuarios);
+	}
+	
+	public void crearJSONListas() 
+	{
+		ControladoraJSON.crearJSONObjListaProductos(alimentosCultivados, limpieza, congelados);
+	}
 
-	public Usuario login(String usuario, String contraseña)
+	public Usuario login(String usuario, String contraseña) // comprueba si el nombre de usuario existe y la contraseña es correcta
 			throws UsuarioIncorrectoException, ContraseñaIncorrectaException {
 		if (!listaUsuarios.containsKey(usuario))
-			throw new UsuarioIncorrectoException("El usuario no existe.");
+			throw new UsuarioIncorrectoException("EL USUARIO NO EXISTE.");
 
 		if (!listaUsuarios.get(usuario).getContraseña().equalsIgnoreCase(contraseña))
-			throw new ContraseñaIncorrectaException("La contraseña es incorrecta");
+			throw new ContraseñaIncorrectaException("LA CONTRASEÑA ES INCORRECTA.");
 
 		return listaUsuarios.get(usuario);
 	}
 
-	public boolean agregarUsuario(Usuario usuario) throws UsuarioIncorrectoException {
-		if (listaUsuarios.containsKey(usuario.getNombreDeUsuario()))
-			throw new UsuarioIncorrectoException("Usuario ya existente.");
+	public boolean agregarUsuario(Usuario usuario) throws UsuarioIncorrectoException { 
+		if (listaUsuarios.containsKey(usuario.getNombreDeUsuario()))        // si no existe el usuario, lo agrega
+			throw new UsuarioIncorrectoException("USUARIO YA EXISTE.");
 
 		listaUsuarios.put(usuario.getNombreDeUsuario(), usuario);
 		return true;
@@ -57,14 +69,14 @@ public class Mercado {
 	public String mostrarTodosLosProductos() {
 		StringBuilder lista = new StringBuilder();
 
-		lista.append(congelados.mostrar()+"\n");
-		lista.append(alimentosCultivados.mostrar()+"\n");
-		lista.append(limpieza.mostrar()+"\n");
+		lista.append("CONGELADOS..\n" + congelados.mostrar()+"\n\n");
+		lista.append("ALIMENTOS CULTIVADOS..\n" + alimentosCultivados.mostrar()+"\n\n");
+		lista.append("ARTICULOS DE LIMPIEZA..\n" + limpieza.mostrar()+"\n\n");
 
 		return lista.toString();
 	}
 
-	public boolean existeOno(String nombre) {
+	public boolean existeOno(String nombre) { // retorna un boolean si existe el producto con el nombre pasado por parametro
 
 		boolean flag = congelados.buscar(nombre);
 
@@ -92,7 +104,7 @@ public class Mercado {
 		return prod;
 	}
 	
-	public void reponer(String nombre, int cantidad) {
+	public void reponer(String nombre, int cantidad) {  // busca el producto y si lo encuentra aumenta x cantidad en el stock
 
 		congelados.buscarRepone(nombre, cantidad);
 		alimentosCultivados.buscarRepone(nombre, cantidad);
@@ -100,7 +112,7 @@ public class Mercado {
 		
 	}
 
-	public void agregarProd(Producto prod, int tipo) {
+	public void agregarProd(Producto prod, int tipo) { // agrega el producto a la lista correspondiente (pasada por parametro)
 		
 		if(tipo == 1) {
 			congelados.agregarProducto((Congelado)prod);
@@ -121,7 +133,8 @@ public class Mercado {
 		while (it.hasNext())
 		{
 			Entry<String, Usuario> fila = it.next();
-			listaEmp.append(fila.toString()); // corroborar
+			if (fila.getValue() instanceof Empleado)
+				listaEmp.append(fila.getValue().toString()+"\n");
 		}
 		
 		return listaEmp.toString();

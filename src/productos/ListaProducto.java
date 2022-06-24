@@ -19,10 +19,26 @@ public class ListaProducto<E extends Producto> {
 	}
 
 	public String mostrar() {
-		return listaProductos.toString();
+		StringBuilder lista = new StringBuilder();
+		
+		for (E e : listaProductos) {
+			lista.append(e.toString());
+		}
+		
+		return lista.toString();
+	}
+	
+	public E get (int index)
+	{
+		return listaProductos.get(index);
+	}
+	
+	public int size()
+	{
+		return listaProductos.size();
 	}
 
-	public boolean buscar(String nombre) {
+	public boolean buscar(String nombre) { // retorna un boolean si encuentra el producto pasado por parametro
 
 		boolean flag = false;
 		int i = 0;
@@ -37,7 +53,7 @@ public class ListaProducto<E extends Producto> {
 		return flag;
 	}
 
-	public Producto retornarProducto(String nombre)
+	public Producto retornarProducto(String nombre) // retorna el producto buscado si es que existe, si no retorna null
 	{
 		for (E e : listaProductos) {
 			if (e.getNombre().equalsIgnoreCase(nombre))
@@ -47,7 +63,7 @@ public class ListaProducto<E extends Producto> {
 		return null;		
 	}
 	
-	public void buscarRepone(String nombre, int cantidad) {
+	public void buscarRepone(String nombre, int cantidad) { // busca el producto pasado por parametro y si lo encuentra incrementa x cantidad en su stock
 
 		boolean flag = false;
 		int i = 0;

@@ -1,12 +1,7 @@
 package main;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.NotSerializableException;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
-
 import productos.*;
 import usuarios.*;
 import mercado.*;
@@ -19,63 +14,55 @@ public class Main {
 	static Mercado mercadoTotola;
 
 	public static void main(String[] args) {
+		
 		teclado = new Scanner(System.in);
+
+		System.out.println("----------------------------------------- BIENVENIDO A MERCADO TOTOLA ----------------------------------------- \n");
 		
-		crearArchivo();
-		
-		mercadoTotola = new Mercado("Mercado TOTOLA");
-		
-		try {
-			Gerente gerente = new Gerente("Gerardo", "Messi", 45, "21569784", "gerardoMessi", "12345678", "Libre", 0);
-			mercadoTotola.agregarUsuario(gerente);
-		} catch (UsuarioIncorrectoException e) {
-			System.out.println(e.getMessage());
-		}
+		mercadoTotola = new Mercado("Mercado TOTOLA"); // dentro del constructor se lee la lista de usuarios guardada en archivo
 
 		menuInicial();
 
+		mercadoTotola.crearJSONListas(); // se exporta un JSON de la lista de productos
+		mercadoTotola.guardarUsuarios(); // se genera el archivo con la lista de usuarios
+
+		System.out.println("NOS VEMOS LA PRÓXIMA PA!");
 		teclado.close();
+
 	}
 
-	public static void crearArchivo()
-	{	
-		try {
-			FileOutputStream fileOS_ListaUsuarios = new FileOutputStream("ListaUsuarios,bin");
-			ObjectOutputStream objectOS_ListaUsuarios = new ObjectOutputStream(fileOS_ListaUsuarios);
-			
-			
-			
-		} catch (NotSerializableException e) {
-			System.out.println(e.getMessage().concat("NO SE HA IMPLEMENTADO LA INTERFAZ SERIALIZABLE"));
-		}
-		catch (IOException e) {
-			System.out.println(e.getMessage().concat("HUBO UN ERROR EN LA ESCRITURA."));
-		}
-		catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-	}
-	
 	public static void menuInicial() {
 		int repetir = 1, opcion = 1;
 
 		while (repetir == 1) {
 			try {
 				System.out.println(
-						"¿DESEA INGRESAR O REGISTRARSE?\n" + "	   1  	   - INGRESAR\n" + "OTRO NÚMERO - REGISTRARSE");
+						"¿DESEA INGRESAR O REGISTRARSE?\n" + "1 - INGRESAR\n" + "2 - REGISTRARSE\n" + "3 - CERRAR");
 
 				opcion = teclado.nextInt();
 				teclado.nextLine();
 
 				if (opcion == 1)
 					ingresar();
-				else
+				else if (opcion == 2)
 					registrarse(1);
+				else
+					repetir = 0;
 
-				System.out.println("¿DESEA SEGUIR EN EL MENÚ INICIAL?\n" + "     1      - SÍ\n" + "OTRO NÚMERO - NO");
-				repetir = teclado.nextInt();
+				if (opcion == 1 || opcion == 2) {
+					System.out
+							.println("¿DESEA SEGUIR EN EL MENÚ INICIAL?\n" + "1 - SÍ\n" + "2 - NO");
+					repetir = teclado.nextInt();
+					teclado.nextLine();
+				}
+
+			}
+			catch (InputMismatchException e) {
+				System.out.println("HA INGRESADO EL TIPO DE DATO EQUIVOCADO.");
 				teclado.nextLine();
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
+				repetir = 0;
 				System.out.println(e.getMessage());
 			}
 		}
@@ -89,10 +76,10 @@ public class Main {
 			try {
 				System.out.println("¿QUÉ TIPO DE USUARIO USA?\n" + "	   1 	  - CLIENTE\n"
 						+ "	   2 	  - CAJERO\n" + "	   3 	  - REPOSITOR\n" + "	   4	  - SEGURIDAD\n"
-						+ "	   5 	  - GERENTE");
+						+ "	   5 	  - GERENTE\n" + "	   6 	  - VOLVER\n");
 				tipoUsuario = teclado.nextInt();
 				teclado.nextLine();
-				
+
 				if (tipoUsuario >= 1 && tipoUsuario <= 5) {
 					System.out.println("INGRESE NOMBRE DE USUARIO: ");
 					String nombreUsuario = teclado.nextLine();
@@ -126,7 +113,7 @@ public class Main {
 
 							while (repetir == 1) {
 								System.out.println(
-										"QUE DESEA HACER: 1 - VER SUS DATOS \n 2 - REPONER PRODUCTOS \nOTRO NUMERO - AGREGAR NUEVOS PRODUCTOS");
+										"QUE DESEA HACER:\n1 - VER SUS DATOS \n2 - REPONER PRODUCTOS \n3 - AGREGAR NUEVOS PRODUCTOS\n4 - VOLVER");
 								opcion = teclado.nextInt();
 								teclado.nextLine();
 
@@ -151,23 +138,23 @@ public class Main {
 									teclado.nextLine();
 									mercadoTotola.reponer(nombre, cant);
 
-								} else {
+								} else if (opcion == 3) {
 									boolean flagB = false;
 									String nombreProd = "";
 
-									System.out.println("Que tipo de producto desea agregar?\n" + "1- Congelado\n"
-											+ "2- Alimento cultivado\n" + "3- Limpieza\n");
+									System.out.println("QUE TIPO DE PRODUCTO DESEA AGREGAR?\n" + "1- CONGELADO\n"
+											+ "2- ALIMENTO CULTIVADO\n" + "3- LIMPIEZA\n");
 									int tipo = teclado.nextInt();
 									teclado.nextLine();
 
 									while (!flagB) {
-										System.out.println("Ingrese el nombre del producto");
+										System.out.println("INGRESE EL NOMBRE DEL PRODUCTO:");
 										nombreProd = teclado.nextLine();
 
 										if (!mercadoTotola.existeOno(nombreProd))
 											flagB = true;
 										else
-											System.out.println("El producto ya existe.");
+											System.out.println("EL PRODUCTO YA EXISTE.");
 									}
 
 									System.out.println("INGRESE EL PRECIO: ");
@@ -199,12 +186,19 @@ public class Main {
 										mercadoTotola.agregarProd(nuevo, 3);
 									}
 								}
+								else
+								{
+									repetir = 0;
+								}
 
-								System.out.println("¿DESEA SEGUIR EN EL MENÚ DE REPOSITOR?\n" + "     1      - SÍ\n"
-										+ "OTRO NÚMERO - NO");
+								if (repetir != 0)
+								{
+									System.out.println("¿DESEA SEGUIR EN EL MENÚ DE REPOSITOR?\n" + "1 - SÍ\n"
+											+ "2 - NO");
 
-								repetir = teclado.nextInt();
-								teclado.nextLine();
+									repetir = teclado.nextInt();
+									teclado.nextLine();
+								}
 							}
 
 						}
@@ -229,7 +223,7 @@ public class Main {
 
 							while (repetir == 1) {
 								System.out.println("INGRESE UNA OPCION: \n" + "1 - AGREGAR EMPLEADO\n"
-										+ "2 - MODIFICAR SUELDO A EMPLEADO\n" + "3 - DESPEDIR EMPLEADO.");
+										+ "2 - MODIFICAR SUELDO A EMPLEADO\n" + "3 - VOLVER.");
 								opcionGerente = teclado.nextInt();
 								teclado.nextLine();
 
@@ -255,7 +249,7 @@ public class Main {
 										nombreEmp = teclado.nextLine();
 										empEncontrado = mercadoTotola.buscarEmpleado(nombreEmp);
 									}
-									
+
 									System.out.println(
 											"INGRESE HORAS TRABAJADAS DE " + empEncontrado.getNombreYApellido());
 									int hsTrabajadas = teclado.nextInt();
@@ -267,27 +261,18 @@ public class Main {
 									int hsExtrasTrabajadas = teclado.nextInt();
 									empEncontrado.setHorasExtras(hsExtrasTrabajadas);
 									teclado.nextLine();
+									empEncontrado.aCobrar();		
+									
+									} else
+									repetir = 0;
 
-								} else {
-									System.out.println(mercadoTotola.mostrarEmpleados());
-									System.out.println("INGRESE NOMBRE DE USUARIO DEL EMPLEADO A DESPEDIR: ");
-									String nombreEmp = teclado.nextLine();
+								if (repetir != 0) {
+									System.out.println("¿DESEA SEGUIR EN EL MENÚ DEL GERENTE?\n" + "     1      - SÍ\n"
+											+ "2 - NO");
 
-									while (!mercadoTotola.eliminarEmpleado(nombreEmp)) {
-										System.out.println(
-												"EL USUARIO NO EXISTE. INGRESE SU NOMBRE DE USUARIO CORRECTAMENTE: ");
-										nombreEmp = teclado.nextLine();
-									}
-
-									System.out.println(mercadoTotola.mostrarEmpleados());
-
+									repetir = teclado.nextInt();
+									teclado.nextLine();
 								}
-
-								System.out.println(
-										"¿DESEA SEGUIR EN EL MENÚ?\n" + "     1      - SÍ\n" + "OTRO NÚMERO - NO");
-
-								repetir = teclado.nextInt();
-								teclado.nextLine();
 							}
 						}
 
@@ -296,13 +281,19 @@ public class Main {
 						break;
 					}
 				}
+				else
+				{
+					flag = false;
+				}
 
 			} catch (UsuarioIncorrectoException e) {
 				System.out.println(e.getMessage());
 			} catch (ContraseñaIncorrectaException e) {
 				System.out.println(e.getMessage());
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
+			}
+			catch(ClassCastException e)
+			{
+				System.out.println("EL TIPO DE USUARIO NO ES CORRECTO.");
 			}
 		}
 	}
@@ -313,7 +304,6 @@ public class Main {
 		Carrito carrito = new Carrito();
 
 		while (repetir == 1) {
-			try {
 				System.out.println("INGRESE UNA OPCIÓN:\n" + "1 - VER LISTADO DE PRODUCTOS.\n"
 						+ "2 - BUSCAR PRODUCTO.\n" + "3 - VER CARRITO.\n" + "4 - SALIR DEL MENÚ");
 
@@ -328,22 +318,41 @@ public class Main {
 					break;
 				case 2:
 					String nomProducto;
+					boolean seguirBuscando = true;
 					System.out.println("INGRESE EL NOMBRE DEL PRODUCTO:");
 					nomProducto = teclado.nextLine();
 					prodPedido = mercadoTotola.retornarProducto(nomProducto);
 
-					while (prodPedido == null) {
-						System.out.println("EL PRODUCTO NO EXISTE. INGRESE NUEVAMENTE: ");
+					while (seguirBuscando && prodPedido == null) {
+						System.out.println(
+								"EL PRODUCTO NO EXISTE. INGRESE NUEVAMENTE O UN 'NO' SI DESEA REGRESAR AL MENÚ DE CLIENTE.");
 						nomProducto = teclado.nextLine();
 						prodPedido = mercadoTotola.retornarProducto(nomProducto);
+						if (nomProducto.equalsIgnoreCase("no"))
+							seguirBuscando = false;
 					}
 
-					System.out.println("¿QUÉ CANTIDAD PRECISA DEL PRODUCTO?");
-					cantUnidades = teclado.nextInt();
-					teclado.nextLine();
+					if (prodPedido != null) {
+						System.out.println("¿QUÉ CANTIDAD PRECISA DEL PRODUCTO?");
+						cantUnidades = teclado.nextInt();
+						teclado.nextLine();
 
-					carrito.agregarACarrito(
-							new ItemPedido(prodPedido.getNombre(), prodPedido.getPrecio(), cantUnidades));
+						while (seguirBuscando && prodPedido.getStock() < cantUnidades) {
+							System.out.println("SOLO QUEDAN " + prodPedido.getStock() + " UNIDADES.\n"
+									+ "INGRESE NUEVAMENTE O UN 0 SI DESEA REGRESAR AL MENÚ DE CLIENTE.");
+							cantUnidades = teclado.nextInt();
+							teclado.nextLine();
+							if (cantUnidades == 0)
+								seguirBuscando = false;
+						}
+
+						if (seguirBuscando)
+						{
+							prodPedido.sacarStock(cantUnidades);
+							carrito.agregarACarrito(
+									new ItemPedido(prodPedido.getNombre(), prodPedido.getPrecio(), cantUnidades));
+						}
+					}
 
 					break;
 				case 3:
@@ -356,9 +365,6 @@ public class Main {
 				default:
 					break;
 				}
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			}
 		}
 
 	}
@@ -425,8 +431,6 @@ public class Main {
 			}
 
 		} catch (UsuarioIncorrectoException e) {
-			System.out.println(e.getMessage());
-		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}

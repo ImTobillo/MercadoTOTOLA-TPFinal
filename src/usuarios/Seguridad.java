@@ -1,5 +1,7 @@
 package usuarios;
 
+import java.io.Serializable;
+
 public class Seguridad extends Empleado{
 
 	private String zonaAvigilar;
@@ -13,7 +15,7 @@ public class Seguridad extends Empleado{
 
 	@Override
 	public String toString() {
-		return super.toString() + " zonaAvigilar=" + zonaAvigilar;
+		return super.toString() + "\nZONA A VIGILAR: " + zonaAvigilar;
 	}
 	
 	public void asignarZona(String zonaAVigilar) {

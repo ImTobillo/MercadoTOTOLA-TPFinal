@@ -3,8 +3,6 @@ package productos;
 import java.util.Objects;
 
 public class Producto implements Comparable<Producto>{
-	//private static int identificador;
-	
 	// ATRIBUTOS
 	
 	private String nombre;
@@ -19,7 +17,6 @@ public class Producto implements Comparable<Producto>{
 		precio = 0;
 		stock = 0;
 		id = 0;
-		//identificador++;
 	}
 	
 	public Producto(String nombre, float precio, int stock, int id) {
@@ -27,7 +24,6 @@ public class Producto implements Comparable<Producto>{
 		this.precio = precio;
 		this.stock = stock;
 		this.id = id;
-		//identificador++;
 	}
 	
 	// METODOS
@@ -48,16 +44,16 @@ public class Producto implements Comparable<Producto>{
 		return id;
 	}
 	
-	/*public static void setIdentificador(int identificador) {
-		Producto.identificador = identificador;
-	}*/
-	
 	public void setPrecio(float precio) {
 		this.precio = precio;
 	}
 	
 	public void agregarStock(int stock) {
-		this.stock = stock;
+		this.stock += stock;
+	}
+	
+	public void sacarStock(int stockUsado) {
+		this.stock -= stockUsado;
 	}
 
 	@Override
@@ -93,7 +89,7 @@ public class Producto implements Comparable<Producto>{
 	
 	@Override
 	public String toString() {
-		return "Producto [nombre=" + nombre + ", precio=" + precio + ", stock=" + stock + ", id=" + id + "]";
+		return "\n" + nombre.toUpperCase() + "	PRECIO: " + precio + " STOCK: " + stock + " ";
 	}
 
 }
